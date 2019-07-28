@@ -3,14 +3,14 @@
 
 def letter_change(sign, step):
     # upper case
-    if ord(sign) in range(65, 91 - step):
-        return chr(ord(sign) + step)
-    if ord(sign) in range(91 - step, 91):
+    if ord(sign) in range(65, 91):
+        if ord(sign) < 91 - step:
+            return chr(ord(sign) + step)
         return chr(64 + ord(sign) - 90 + step)
     # lower case
-    if ord(sign) in range(97, 123 - step):
-        return chr(ord(sign) + step)
-    if ord(sign) in range(123 - step, 123):
+    if ord(sign) in range(97, 123):
+        if ord(sign) < 123 - step:
+            return chr(ord(sign) + step)
         return chr(96 + ord(sign) - 122 + step)
     return sign
 

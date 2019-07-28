@@ -17,7 +17,7 @@ def letter_change(sign):
     return sign
 
 
-def caesar(text):
+def vigenere(text):
     new_text = ""
     for sign in text:
         new_text += letter_change(sign)
@@ -27,4 +27,4 @@ def caesar(text):
 with open("from.txt", "r") as f:
     file_text = f.read()
 with open("to.txt", "w") as f:
-    f.write(caesar(file_text))
+    f.write(vigenere(file_text))
