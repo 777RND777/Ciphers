@@ -15,6 +15,20 @@ def caesar_cipher(sign, shift):
     return sign
 
 
+def caesar_decipher(sign, shift):
+    # upper case
+    if ord(sign) in range(65, 91):
+        if ord(sign) - shift >= 64:
+            return chr(ord(sign) - shift)
+        return chr(ord(sign) + 26 - shift)
+    # lower case
+    if ord(sign) in range(97, 123):
+        if ord(sign) - shift >= 97:
+            return chr(ord(sign) - shift)
+        return chr(ord(sign) + 26 - shift)
+    return sign
+
+
 def caesar_get_error(shift):
     try:
         shift = int(shift)
@@ -28,7 +42,7 @@ def caesar_get_error(shift):
 def caesar_main(text, shift):
     new_text = ""
     for sign in text:
-        new_text += caesar_cipher(sign, shift)
+        new_text += caesar_decipher(sign, shift)
     return new_text
 
 
