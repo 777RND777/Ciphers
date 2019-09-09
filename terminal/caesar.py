@@ -32,8 +32,8 @@ def caesar_decipher(sign, shift):
 def caesar_get_error(shift):
     try:
         shift = int(shift)
-        if shift not in range(23):
-            return "Wrong value for Key: 1-22", shift
+        if shift not in range(1, 23):
+            return "Wrong value for Key: 1-22 (positive & negative)", shift
     except ValueError:
         return "Wrong parameter: Key", shift
     return "", shift
@@ -41,8 +41,12 @@ def caesar_get_error(shift):
 
 def caesar_main(text, shift):
     new_text = ""
-    for sign in text:
-        new_text += caesar_decipher(sign, shift)
+    if shift > 0:
+        for sign in text:
+            new_text += caesar_cipher(sign, shift)
+    else:
+        for sign in text:
+            new_text += caesar_decipher(sign, shift)
     return new_text
 
 
