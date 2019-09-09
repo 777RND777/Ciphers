@@ -18,7 +18,7 @@ def caesar_cipher(sign, shift):
 def caesar_decipher(sign, shift):
     # upper case
     if ord(sign) in range(65, 91):
-        if ord(sign) - shift >= 64:
+        if ord(sign) - shift >= 65:
             return chr(ord(sign) - shift)
         return chr(ord(sign) + 26 - shift)
     # lower case
