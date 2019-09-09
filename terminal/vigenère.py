@@ -18,6 +18,8 @@ def vigenere_letter_change(sign, key):
 
 
 def vigenere(text, keyword):
+    if not keyword.isalpha():
+        return "Wrong parameter: Keyword"
     new_text = ""
     while len(keyword) < len(text):
         keyword += keyword
