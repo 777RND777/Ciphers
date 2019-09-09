@@ -1,35 +1,35 @@
 # caesar from text
 
 
-def letter_change(sign, step):
+def caesar_letter_change(sign, shift):
     # upper case
     if ord(sign) in range(65, 91):
-        if ord(sign) < 91 - step:
-            return chr(ord(sign) + step)
-        return chr(64 + ord(sign) - 90 + step)
+        if ord(sign) < 91 - shift:
+            return chr(ord(sign) + shift)
+        return chr(64 + ord(sign) - 90 + shift)
     # lower case
     if ord(sign) in range(97, 123):
-        if ord(sign) < 123 - step:
-            return chr(ord(sign) + step)
-        return chr(96 + ord(sign) - 122 + step)
+        if ord(sign) < 123 - shift:
+            return chr(ord(sign) + shift)
+        return chr(96 + ord(sign) - 122 + shift)
     return sign
 
 
-def caesar(text, step):
+def caesar(text, shift):
     try:
-        step = int(step)
-        if step not in range(23):
-            return "Wrong value for Step: 1-22"
+        shift = int(shift)
+        if shift not in range(23):
+            return "Wrong value for Key: 1-22"
     except ValueError:
-        return "Wrong parameter: Step"
+        return "Wrong parameter: Key"
     new_text = ""
     for sign in text:
-        new_text += letter_change(sign, step)
+        new_text += caesar_letter_change(sign, shift)
     return new_text
 
 
-user_step = input("Step: ")
+user_key = input("Key: ")
 with open("from.txt", "r") as f:
     file_text = f.read()
 with open("to.txt", "w") as f:
-    f.write(caesar(file_text, user_step))
+    f.write(caesar(file_text, user_key))
