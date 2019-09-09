@@ -39,26 +39,40 @@ def vigenere_get_error(keyword):
     return ""
 
 
-def vigenere_main(text, keyword):
-    new_text = ""
+def vigenere_keyword(text, keyword):
     while len(keyword) < len(text):
         keyword += keyword
     keyword = keyword[:len(text)]
+    return keyword
+
+
+def vigenere_main(text, keyword, mode):
+    new_text = ""
+    keyword = vigenere_keyword(text, keyword)
     index = 0
-    for i in range(len(text)):
-        sign, changed = vigenere_cipher(text[i], keyword[index])
-        new_text += sign
-        if changed:
-            index += 1
+    if mode == "Cipher":
+        for i in range(len(text)):
+            sign, changed = vigenere_cipher(text[i], keyword[index])
+            new_text += sign
+            if changed:
+                index += 1
+    else:
+        for i in range(len(text)):
+            sign, changed = vigenere_decipher(text[i], keyword[index])
+            new_text += sign
+            if changed:
+                index += 1
     return new_text
 
 
-user_keyword = input("Keyword: ")
-with open("from.txt", "r") as f:
-    file_text = f.read()
-with open("to.txt", "w") as f:
-    error = vigenere_get_error(user_keyword)
-    if len(error) == 0:
-        f.write(vigenere_main(file_text, user_keyword))
-    else:
-        print(error)
+if __name__ == "__main__":
+    mode = input("Mode (Cipher/Decipher): ")
+    user_keyword = input("Keyword: ")
+    with open("from.txt", "r") as f:
+        file_text = f.read()
+    with open("to.txt", "w") as f:
+        error = vigenere_get_error(user_keyword)
+        if len(error) == 0:
+            f.write(vigenere_main(file_text, user_keyword))
+        else:
+            print(error)

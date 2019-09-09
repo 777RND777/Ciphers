@@ -32,16 +32,16 @@ def caesar_decipher(sign, shift):
 def caesar_get_error(shift):
     try:
         shift = int(shift)
-        if shift not in range(1, 23):
-            return "Wrong value for Key: 1-22 (positive & negative)", shift
+        if shift not in range(1, 26):
+            return "Wrong value for Key: 1-25 (positive & negative)", shift
     except ValueError:
         return "Wrong parameter: Key", shift
     return "", shift
 
 
-def caesar_main(text, shift):
+def caesar_main(text, shift, mode):
     new_text = ""
-    if shift > 0:
+    if mode == "Cipher":
         for sign in text:
             new_text += caesar_cipher(sign, shift)
     else:
@@ -50,12 +50,14 @@ def caesar_main(text, shift):
     return new_text
 
 
-user_key = input("Key: ")
-with open("from.txt", "r") as f:
-    file_text = f.read()
-with open("to.txt", "w") as f:
-    error, user_key = caesar_get_error(user_key)
-    if len(error) == 0:
-        f.write(caesar_main(file_text, user_key))
-    else:
-        print(error)
+if __name__ == "__main__":
+    mode = input("Mode (Cipher/Decipher): ")
+    user_key = input("Key: ")
+    with open("from.txt", "r") as f:
+        file_text = f.read()
+    with open("to.txt", "w") as f:
+        error, user_key = caesar_get_error(user_key)
+        if len(error) == 0:
+            f.write(caesar_main(file_text, user_key, mode))
+        else:
+            print(error)
