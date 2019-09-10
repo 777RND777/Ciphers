@@ -8,34 +8,44 @@ class MainWindow(QMainWindow):
     def __init__(self, **kwargs):
         super(MainWindow, self).__init__(**kwargs)
         self.resize(640, 480)
+        self.setWindowTitle("Ciphers")
 
         self.userText = QPlainTextEdit(self)
+        self.userText.setPlaceholderText("Input...")
         self.userText.move(10, 10)
         self.userText.resize(250, 460)
 
         self.changedText = QPlainTextEdit(self)
         self.changedText.setReadOnly(True)
+        self.changedText.setPlaceholderText("Output")
         self.changedText.move(380, 10)
         self.changedText.resize(250, 460)
 
-        self.cipherButton = QPushButton("GO", self)
-        self.cipherButton.move(270, 75)
-        self.cipherButton.clicked.connect(self.cipher)
+        self.cipherBox = QComboBox(self)
+        self.cipherBox.addItems(["Caesar", "Vigenere"])
+        self.cipherBox.move(270, 25)
 
         self.modeBox = QComboBox(self)
         self.modeBox.addItems(["Cipher", "Decipher"])
-        self.modeBox.move(270, 150)
-
-        self.cipherBox = QComboBox(self)
-        self.cipherBox.addItems(["Caesar", "Vigenere"])
-        self.cipherBox.move(270, 225)
+        self.modeBox.move(270, 100)
 
         self.keyText = QPlainTextEdit(self)
-        self.keyText.move(270, 300)
+        self.keyText.setPlaceholderText("Key...")
+        self.keyText.resize(100, 60)
+        self.keyText.move(270, 175)
+
+        self.cipherButton = QPushButton("GO", self)
+        self.cipherButton.resize(100, 60)
+        self.cipherButton.move(270, 250)
+        self.cipherButton.clicked.connect(self.cipher)
 
         self.swapButton = QPushButton("<-- Swap -->", self)
-        self.swapButton.move(270, 375)
+        self.swapButton.move(270, 325)
         self.swapButton.clicked.connect(self.swap)
+
+        self.clearButton = QPushButton("Clear", self)
+        self.clearButton.move(270, 375)
+        self.clearButton.clicked.connect(self.clear)
 
     def cipher(self):
         if self.cipherBox.currentText() == "Caesar":
@@ -55,6 +65,10 @@ class MainWindow(QMainWindow):
         holder = self.userText.toPlainText()
         self.userText.setPlainText(self.changedText.toPlainText())
         self.changedText.setPlainText(holder)
+
+    def clear(self):
+        self.userText.setPlainText("")
+        self.changedText.setPlainText("")
 
 
 def catch_exceptions(t, val, tb):
