@@ -1,6 +1,6 @@
 from terminal.caesar import caesar_get_error, caesar_main
 from terminal.vigenère import vigenere_get_error, vigenere_main
-from PyQt5.QtWidgets import (QApplication, QComboBox, QMainWindow, QMessageBox, QPlainTextEdit, QPushButton)
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QMainWindow, QMessageBox, QPlainTextEdit, QPushButton)
 import sys
 
 
@@ -46,6 +46,10 @@ class MainWindow(QMainWindow):
         self.clearButton = QPushButton("Clear", self)
         self.clearButton.move(270, 375)
         self.clearButton.clicked.connect(self.clear)
+        self.clearCheckKey = QCheckBox("key", self)
+        self.clearCheckKey.setChecked(True)
+        self.clearCheckKey.move(295, 400)
+        # TODO icons
 
     def cipher(self):
         if self.cipherBox.currentText() == "Caesar":
@@ -69,6 +73,8 @@ class MainWindow(QMainWindow):
     def clear(self):
         self.userText.setPlainText("")
         self.changedText.setPlainText("")
+        if self.clearCheckKey.isChecked():
+            self.keyText.setPlainText("")
 
 
 def catch_exceptions(t, val, tb):
