@@ -1,55 +1,64 @@
 from terminal.caesar import caesar_get_error, caesar_main
 from terminal.vigenère import vigenere_get_error, vigenere_main
-from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QMainWindow, QMessageBox, QPlainTextEdit, QPushButton)
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog,
+                             QMainWindow, QMessageBox, QPlainTextEdit, QPushButton)
+import os
 import sys
 
 
 class MainWindow(QMainWindow):
     def __init__(self, **kwargs):
         super(MainWindow, self).__init__(**kwargs)
-        self.resize(640, 480)
+        self.resize(1080, 640)
         self.setWindowTitle("Ciphers")
 
         self.userText = QPlainTextEdit(self)
         self.userText.setPlaceholderText("Input...")
         self.userText.move(10, 10)
-        self.userText.resize(250, 460)
+        self.userText.resize(400, 620)
+
+        self.userTextButton = QPushButton("File", self)
+        self.userTextButton.move(420, 20)
+        self.userTextButton.clicked.connect(self.open_file)
 
         self.changedText = QPlainTextEdit(self)
         self.changedText.setReadOnly(True)
         self.changedText.setPlaceholderText("Output")
-        self.changedText.move(380, 10)
-        self.changedText.resize(250, 460)
+        self.changedText.move(670, 10)
+        self.changedText.resize(400, 620)
+
+        self.changedTextButton = QPushButton("Save", self)
+        self.changedTextButton.move(560, 20)
+        self.changedTextButton.clicked.connect(self.save_file)
 
         self.cipherBox = QComboBox(self)
         self.cipherBox.addItems(["Caesar", "Vigenere"])
-        self.cipherBox.move(270, 25)
+        self.cipherBox.move(420, 70)
 
         self.modeBox = QComboBox(self)
         self.modeBox.addItems(["Cipher", "Decipher"])
-        self.modeBox.move(270, 100)
+        self.modeBox.move(560, 70)
 
         self.keyText = QPlainTextEdit(self)
         self.keyText.setPlaceholderText("Key...")
         self.keyText.resize(100, 60)
-        self.keyText.move(270, 175)
+        self.keyText.move(420, 120)
 
         self.cipherButton = QPushButton("GO", self)
         self.cipherButton.resize(100, 60)
-        self.cipherButton.move(270, 250)
+        self.cipherButton.move(560, 120)
         self.cipherButton.clicked.connect(self.cipher)
 
         self.swapButton = QPushButton("<-- Swap -->", self)
-        self.swapButton.move(270, 325)
+        self.swapButton.move(420, 200)
         self.swapButton.clicked.connect(self.swap)
 
         self.clearButton = QPushButton("Clear", self)
-        self.clearButton.move(270, 375)
+        self.clearButton.move(560, 200)
         self.clearButton.clicked.connect(self.clear)
         self.clearCheckKey = QCheckBox("key", self)
         self.clearCheckKey.setChecked(True)
-        self.clearCheckKey.move(295, 400)
-        # TODO icons
+        self.clearCheckKey.move(585, 225)
 
     def cipher(self):
         if self.cipherBox.currentText() == "Caesar":
@@ -75,6 +84,22 @@ class MainWindow(QMainWindow):
         self.changedText.setPlainText("")
         if self.clearCheckKey.isChecked():
             self.keyText.setPlainText("")
+
+    def open_file(self):
+        file = QFileDialog.getOpenFileName(None, 'Open file', os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
+        try:
+            with open(file, 'r') as f:
+                self.userText.setPlainText(f.read())
+        except FileNotFoundError:
+            pass
+
+    def save_file(self):
+        file = QFileDialog.getSaveFileName(None, 'Save file', os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
+        try:
+            with open(file, 'w') as f:
+                f.write(self.changedText.toPlainText())
+        except FileNotFoundError:
+            pass
 
 
 def catch_exceptions(t, val, tb):
