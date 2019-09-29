@@ -85,6 +85,22 @@ class MainWindow(QMainWindow):
         if self.clearCheckKey.isChecked():
             self.keyText.setPlainText("")
 
+    def open_file(self):
+        file = QFileDialog.getOpenFileName(None, 'Open file', os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
+        try:
+            with open(file, 'r') as f:
+                self.userText.setPlainText(f.read())
+        except FileNotFoundError:
+            pass
+
+    def save_file(self):
+        file = QFileDialog.getSaveFileName(None, 'Save file', os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
+        try:
+            with open(file, 'w') as f:
+                f.write(self.changedText.toPlainText())
+        except FileNotFoundError:
+            pass
+
 
 def catch_exceptions(t, val, tb):
     QMessageBox.critical(None, 'An exception was raised', 'Exception type: {}'.format(t))
