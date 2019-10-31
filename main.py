@@ -1,5 +1,5 @@
-from terminal.caesar import caesar_get_error, caesar_main
-from terminal.vigenère import vigenere_get_error, vigenere_main
+from cipher.caesar import caesar_get_error, caesar_main
+from cipher.vigenère import vigenere_get_error, vigenere_main
 from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog,
                              QMainWindow, QMessageBox, QPlainTextEdit, QPushButton)
 import os

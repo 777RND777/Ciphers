@@ -65,14 +65,15 @@ def vigenere_main(text, keyword, mode):
     return new_text
 
 
-if __name__ == "__main__":
-    mode = input("Mode (Cipher/Decipher): ")
-    user_keyword = input("Keyword: ")
-    with open("from.txt", "r") as f:
-        file_text = f.read()
-    with open("to.txt", "w") as f:
-        error = vigenere_get_error(user_keyword)
-        if len(error) == 0:
-            f.write(vigenere_main(file_text, user_keyword))
-        else:
-            print(error)
+# independent terminal part
+# if __name__ == "__main__":
+#     mode = input("Mode (Cipher/Decipher): ")
+#     user_keyword = input("Keyword: ")
+#     with open("from.txt", "r") as f:
+#         file_text = f.read()
+#     with open("to.txt", "w") as f:
+#         error = vigenere_get_error(user_keyword)
+#         if len(error) == 0:
+#             f.write(vigenere_main(file_text, user_keyword))
+#         else:
+#             print(error)
