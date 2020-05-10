@@ -1,26 +1,25 @@
 from cipher.caesar import caesar_get_error, caesar_main
 from cipher.vigenère import vigenere_get_error, vigenere_main
 from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog,
-                             QMainWindow, QMessageBox, QPlainTextEdit, QPushButton)
+                             QHBoxLayout, QMessageBox, QPlainTextEdit, QPushButton, QWidget)
 import os
 import sys
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QWidget):
     def __init__(self, **kwargs):
         super(MainWindow, self).__init__(**kwargs)
         self.resize(1080, 640)
         self.setWindowTitle("Ciphers")
+        self.mainLayout = QHBoxLayout()
 
         self.inputText = QPlainTextEdit()
         self.inputText.setPlaceholderText("Input...")
-        self.inputText.move(10, 10)
         self.inputText.resize(400, 620)
 
         self.outputText = QPlainTextEdit()
         self.outputText.setReadOnly(True)
         self.outputText.setPlaceholderText("Output")
-        self.outputText.move(670, 10)
         self.outputText.resize(400, 620)
 
         self.userTextButton = QPushButton("File")
@@ -60,6 +59,11 @@ class MainWindow(QMainWindow):
         self.clearCheckKey = QCheckBox("key")
         self.clearCheckKey.setChecked(True)
         self.clearCheckKey.move(585, 225)
+
+        self.mainLayout.addWidget(self.inputText)
+        self.mainLayout.addWidget(self.outputText)
+
+        self.setLayout(self.mainLayout)
 
     def cipher(self):
         if self.cipherBox.currentText() == "Caesar":
