@@ -1,6 +1,6 @@
 from cipher.caesar import caesar_get_error, caesar_main
 from cipher.vigenère import vigenere_get_error, vigenere_main
-from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog,
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog, QGridLayout,
                              QHBoxLayout, QMessageBox, QPlainTextEdit, QPushButton, QWidget)
 import os
 import sys
@@ -22,9 +22,7 @@ class MainWindow(QWidget):
         self.outputText.setPlaceholderText("Output")
         self.outputText.resize(400, 620)
 
-        self.userTextButton = QPushButton("File")
-        self.userTextButton.move(420, 20)
-        self.userTextButton.clicked.connect(self.open_file)
+        self.userLayout = QGridLayout()
 
         self.openFileButton = QPushButton("File")
         self.openFileButton.move(420, 20)
@@ -64,7 +62,18 @@ class MainWindow(QWidget):
         self.clearCheckKey.setChecked(True)
         self.clearCheckKey.move(585, 225)
 
+        self.userLayout.addWidget(self.openFileButton, 0, 0)
+        self.userLayout.addWidget(self.saveFileButton, 0, 1)
+        self.userLayout.addWidget(self.cipherBox, 1, 0)
+        self.userLayout.addWidget(self.modeBox, 1, 1)
+        self.userLayout.addWidget(self.keyText, 2, 0)
+        self.userLayout.addWidget(self.cipherButton, 2, 1)
+        self.userLayout.addWidget(self.swapButton, 3, 0)
+        self.userLayout.addWidget(self.clearButton, 3, 1)
+        self.userLayout.addWidget(self.clearCheckKey, 4, 1)
+
         self.mainLayout.addWidget(self.inputText)
+        self.mainLayout.addLayout(self.userLayout)
         self.mainLayout.addWidget(self.outputText)
 
         self.setLayout(self.mainLayout)
