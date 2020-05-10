@@ -26,9 +26,13 @@ class MainWindow(QWidget):
         self.userTextButton.move(420, 20)
         self.userTextButton.clicked.connect(self.open_file)
 
-        self.changedTextButton = QPushButton("Save")
-        self.changedTextButton.move(560, 20)
-        self.changedTextButton.clicked.connect(self.save_file)
+        self.openFileButton = QPushButton("File")
+        self.openFileButton.move(420, 20)
+        self.openFileButton.clicked.connect(self.open_file)
+
+        self.saveFileButton = QPushButton("Save")
+        self.saveFileButton.move(560, 20)
+        self.saveFileButton.clicked.connect(self.save_file)
 
         self.cipherBox = QComboBox()
         self.cipherBox.addItems(["Caesar", "Vigenere"])
