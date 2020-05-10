@@ -12,51 +12,52 @@ class MainWindow(QMainWindow):
         self.resize(1080, 640)
         self.setWindowTitle("Ciphers")
 
-        self.userText = QPlainTextEdit(self)
-        self.userText.setPlaceholderText("Input...")
-        self.userText.move(10, 10)
-        self.userText.resize(400, 620)
+        self.inputText = QPlainTextEdit()
+        self.inputText.setPlaceholderText("Input...")
+        self.inputText.move(10, 10)
+        self.inputText.resize(400, 620)
 
-        self.userTextButton = QPushButton("File", self)
+        self.outputText = QPlainTextEdit()
+        self.outputText.setReadOnly(True)
+        self.outputText.setPlaceholderText("Output")
+        self.outputText.move(670, 10)
+        self.outputText.resize(400, 620)
+
+        self.userTextButton = QPushButton("File")
         self.userTextButton.move(420, 20)
         self.userTextButton.clicked.connect(self.open_file)
 
-        self.changedText = QPlainTextEdit(self)
-        self.changedText.setReadOnly(True)
-        self.changedText.setPlaceholderText("Output")
-        self.changedText.move(670, 10)
-        self.changedText.resize(400, 620)
-
-        self.changedTextButton = QPushButton("Save", self)
+        self.changedTextButton = QPushButton("Save")
         self.changedTextButton.move(560, 20)
         self.changedTextButton.clicked.connect(self.save_file)
 
-        self.cipherBox = QComboBox(self)
+        self.cipherBox = QComboBox()
         self.cipherBox.addItems(["Caesar", "Vigenere"])
         self.cipherBox.move(420, 70)
 
-        self.modeBox = QComboBox(self)
+        self.modeBox = QComboBox()
         self.modeBox.addItems(["Cipher", "Decipher"])
         self.modeBox.move(560, 70)
 
-        self.keyText = QPlainTextEdit(self)
+        self.keyText = QPlainTextEdit()
         self.keyText.setPlaceholderText("Key...")
         self.keyText.resize(100, 60)
         self.keyText.move(420, 120)
 
-        self.cipherButton = QPushButton("GO", self)
+        self.cipherButton = QPushButton("GO")
         self.cipherButton.resize(100, 60)
         self.cipherButton.move(560, 120)
         self.cipherButton.clicked.connect(self.cipher)
 
-        self.swapButton = QPushButton("<-- Swap -->", self)
+        self.swapButton = QPushButton("<-- Swap -->")
         self.swapButton.move(420, 200)
         self.swapButton.clicked.connect(self.swap)
 
-        self.clearButton = QPushButton("Clear", self)
+        self.clearButton = QPushButton("Clear")
         self.clearButton.move(560, 200)
         self.clearButton.clicked.connect(self.clear)
-        self.clearCheckKey = QCheckBox("key", self)
+
+        self.clearCheckKey = QCheckBox("key")
         self.clearCheckKey.setChecked(True)
         self.clearCheckKey.move(585, 225)
 
@@ -64,24 +65,24 @@ class MainWindow(QMainWindow):
         if self.cipherBox.currentText() == "Caesar":
             error, user_key = caesar_get_error(self.keyText.toPlainText())
             if len(error) == 0:
-                self.changedText.setPlainText(caesar_main(self.userText.toPlainText(), user_key, self.modeBox.currentText()))
+                self.outputText.setPlainText(caesar_main(self.inputText.toPlainText(), user_key, self.modeBox.currentText()))
             else:
                 QMessageBox.critical(None, "An exception was raised", error)
         if self.cipherBox.currentText() == "Vigenere":
             error = vigenere_get_error(self.keyText.toPlainText())
             if len(error) == 0:
-                self.changedText.setPlainText(vigenere_main(self.userText.toPlainText(), self.keyText.toPlainText(), self.modeBox.currentText()))
+                self.outputText.setPlainText(vigenere_main(self.inputText.toPlainText(), self.keyText.toPlainText(), self.modeBox.currentText()))
             else:
                 QMessageBox.critical(None, "An exception was raised", error)
 
     def swap(self):
-        holder = self.userText.toPlainText()
-        self.userText.setPlainText(self.changedText.toPlainText())
-        self.changedText.setPlainText(holder)
+        holder = self.inputText.toPlainText()
+        self.inputText.setPlainText(self.outputText.toPlainText())
+        self.outputText.setPlainText(holder)
 
     def clear(self):
-        self.userText.setPlainText("")
-        self.changedText.setPlainText("")
+        self.inputText.setPlainText("")
+        self.outputText.setPlainText("")
         if self.clearCheckKey.isChecked():
             self.keyText.setPlainText("")
 
@@ -89,14 +90,14 @@ class MainWindow(QMainWindow):
         file = QFileDialog.getOpenFileName(None, 'Open file', os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
         try:
             with open(file, 'r') as f:
-                self.userText.setPlainText(f.read())
+                self.inputText.setPlainText(f.read())
         except FileNotFoundError:
             pass
 
     def save_file(self):
         file = QFileDialog.getSaveFileName(None, 'Save file', os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
         with open(file, 'w') as f:
-            f.write(self.changedText.toPlainText())
+            f.write(self.outputText.toPlainText())
 
 
 def catch_exceptions(t, val, tb):
