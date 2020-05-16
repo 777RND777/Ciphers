@@ -48,24 +48,24 @@ class MainWindow(QWidget):
         self.cipherButton.clicked.connect(self.cipher)
 
         self.fileLayout = QHBoxLayout()
-        self.fileLayout.addWidget(self.openFileButton, alignment=Qt.AlignCenter)
-        self.fileLayout.addWidget(self.saveFileButton, alignment=Qt.AlignCenter)
+        self.fileLayout.addWidget(self.openFileButton, alignment=Qt.AlignBaseline)
+        self.fileLayout.addWidget(self.saveFileButton, alignment=Qt.AlignBaseline)
 
         self.cipherLayout = QHBoxLayout()
-        self.cipherLayout.addWidget(self.cipherBox, alignment=Qt.AlignCenter)
-        self.cipherLayout.addWidget(self.modeBox, alignment=Qt.AlignCenter)
+        self.cipherLayout.addWidget(self.cipherBox, alignment=Qt.AlignBaseline)
+        self.cipherLayout.addWidget(self.modeBox, alignment=Qt.AlignBaseline)
 
         self.commandLayout = QHBoxLayout()
-        self.commandLayout.addWidget(self.clearButton, alignment=Qt.AlignCenter)
-        self.commandLayout.addWidget(self.clearCheckKey, alignment=Qt.AlignCenter)
-        self.commandLayout.addWidget(self.swapButton, alignment=Qt.AlignCenter)
+        self.commandLayout.addWidget(self.clearButton, alignment=Qt.AlignBaseline)
+        self.commandLayout.addWidget(self.swapButton, alignment=Qt.AlignBaseline)
 
         self.userLayout = QVBoxLayout()
         self.userLayout.addLayout(self.fileLayout)
         self.userLayout.addLayout(self.cipherLayout)
         self.userLayout.addWidget(self.keyText, alignment=Qt.AlignCenter)
-        self.userLayout.addWidget(self.cipherButton, alignment=Qt.AlignCenter)
+        self.userLayout.addWidget(self.cipherButton, alignment=Qt.AlignBaseline)
         self.userLayout.addLayout(self.commandLayout)
+        self.userLayout.addWidget(self.clearCheckKey, alignment=Qt.AlignTop)
 
         self.mainLayout = QHBoxLayout()
         self.mainLayout.addWidget(self.inputText)
