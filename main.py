@@ -12,7 +12,6 @@ class MainWindow(QWidget):
         super(MainWindow, self).__init__(**kwargs)
         self.resize(1080, 640)
         self.setWindowTitle("Ciphers")
-        self.mainLayout = QHBoxLayout()
 
         self.inputText = QPlainTextEdit()
         self.inputText.setPlaceholderText("Input...")
@@ -21,20 +20,11 @@ class MainWindow(QWidget):
         self.outputText.setReadOnly(True)
         self.outputText.setPlaceholderText("Output")
 
-        self.userLayout = QVBoxLayout()
-
-        self.fileLayout = QHBoxLayout()
-
         self.openFileButton = QPushButton("File")
         self.openFileButton.clicked.connect(self.open_file)
 
         self.saveFileButton = QPushButton("Save")
         self.saveFileButton.clicked.connect(self.save_file)
-
-        self.fileLayout.addWidget(self.openFileButton, alignment=Qt.AlignCenter)
-        self.fileLayout.addWidget(self.saveFileButton, alignment=Qt.AlignCenter)
-
-        self.cipherLayout = QHBoxLayout()
 
         self.cipherBox = QComboBox()
         self.cipherBox.addItems(["Caesar", "Vigenere"])
@@ -42,13 +32,8 @@ class MainWindow(QWidget):
         self.modeBox = QComboBox()
         self.modeBox.addItems(["Cipher", "Decipher"])
 
-        self.cipherLayout.addWidget(self.cipherBox, alignment=Qt.AlignCenter)
-        self.cipherLayout.addWidget(self.modeBox, alignment=Qt.AlignCenter)
-
         self.keyText = QPlainTextEdit()
         self.keyText.setPlaceholderText("Key...")
-
-        self.commandLayout = QHBoxLayout()
 
         self.clearButton = QPushButton("Clear")
         self.clearButton.clicked.connect(self.clear)
@@ -59,19 +44,30 @@ class MainWindow(QWidget):
         self.swapButton = QPushButton("<-- Swap -->")
         self.swapButton.clicked.connect(self.swap)
 
+        self.cipherButton = QPushButton("GO")
+        self.cipherButton.clicked.connect(self.cipher)
+
+        self.fileLayout = QHBoxLayout()
+        self.fileLayout.addWidget(self.openFileButton, alignment=Qt.AlignCenter)
+        self.fileLayout.addWidget(self.saveFileButton, alignment=Qt.AlignCenter)
+
+        self.cipherLayout = QHBoxLayout()
+        self.cipherLayout.addWidget(self.cipherBox, alignment=Qt.AlignCenter)
+        self.cipherLayout.addWidget(self.modeBox, alignment=Qt.AlignCenter)
+
+        self.commandLayout = QHBoxLayout()
         self.commandLayout.addWidget(self.clearButton, alignment=Qt.AlignCenter)
         self.commandLayout.addWidget(self.clearCheckKey, alignment=Qt.AlignCenter)
         self.commandLayout.addWidget(self.swapButton, alignment=Qt.AlignCenter)
 
-        self.cipherButton = QPushButton("GO")
-        self.cipherButton.clicked.connect(self.cipher)
-
+        self.userLayout = QVBoxLayout()
         self.userLayout.addLayout(self.fileLayout)
         self.userLayout.addLayout(self.cipherLayout)
         self.userLayout.addWidget(self.keyText, alignment=Qt.AlignCenter)
         self.userLayout.addWidget(self.cipherButton, alignment=Qt.AlignCenter)
         self.userLayout.addLayout(self.commandLayout)
 
+        self.mainLayout = QHBoxLayout()
         self.mainLayout.addWidget(self.inputText)
         self.mainLayout.addLayout(self.userLayout)
         self.mainLayout.addWidget(self.outputText)
