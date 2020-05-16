@@ -1,7 +1,8 @@
 from cipher.caesar import caesar_get_error, caesar_main
 from cipher.vigenère import vigenere_get_error, vigenere_main
-from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog, QGridLayout,
-                             QHBoxLayout, QMessageBox, QPlainTextEdit, QPushButton, QWidget)
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog, QHBoxLayout,
+                             QMessageBox, QPlainTextEdit, QPushButton, QVBoxLayout, QWidget)
 import os
 import sys
 
