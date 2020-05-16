@@ -15,52 +15,39 @@ class MainWindow(QWidget):
 
         self.inputText = QPlainTextEdit()
         self.inputText.setPlaceholderText("Input...")
-        self.inputText.resize(400, 620)
 
         self.outputText = QPlainTextEdit()
         self.outputText.setReadOnly(True)
         self.outputText.setPlaceholderText("Output")
-        self.outputText.resize(400, 620)
 
         self.userLayout = QGridLayout()
 
         self.openFileButton = QPushButton("File")
-        self.openFileButton.move(420, 20)
         self.openFileButton.clicked.connect(self.open_file)
 
         self.saveFileButton = QPushButton("Save")
-        self.saveFileButton.move(560, 20)
         self.saveFileButton.clicked.connect(self.save_file)
 
         self.cipherBox = QComboBox()
         self.cipherBox.addItems(["Caesar", "Vigenere"])
-        self.cipherBox.move(420, 70)
 
         self.modeBox = QComboBox()
         self.modeBox.addItems(["Cipher", "Decipher"])
-        self.modeBox.move(560, 70)
 
         self.keyText = QPlainTextEdit()
         self.keyText.setPlaceholderText("Key...")
-        self.keyText.resize(100, 60)
-        self.keyText.move(420, 120)
 
         self.cipherButton = QPushButton("GO")
-        self.cipherButton.resize(100, 60)
-        self.cipherButton.move(560, 120)
         self.cipherButton.clicked.connect(self.cipher)
 
         self.swapButton = QPushButton("<-- Swap -->")
-        self.swapButton.move(420, 200)
         self.swapButton.clicked.connect(self.swap)
 
         self.clearButton = QPushButton("Clear")
-        self.clearButton.move(560, 200)
         self.clearButton.clicked.connect(self.clear)
 
         self.clearCheckKey = QCheckBox("key")
         self.clearCheckKey.setChecked(True)
-        self.clearCheckKey.move(585, 225)
 
         self.userLayout.addWidget(self.openFileButton, 0, 0)
         self.userLayout.addWidget(self.saveFileButton, 0, 1)
