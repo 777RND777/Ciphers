@@ -1,7 +1,7 @@
 from cipher.caesar import caesar_get_error, caesar_main
 from cipher.vigenère import vigenere_get_error, vigenere_main
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog, QHBoxLayout,
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QFileDialog, QHBoxLayout, QLineEdit,
                              QMessageBox, QPlainTextEdit, QPushButton, QVBoxLayout, QWidget)
 import os
 import sys
@@ -32,7 +32,7 @@ class MainWindow(QWidget):
         self.modeBox = QComboBox()
         self.modeBox.addItems(["Cipher", "Decipher"])
 
-        self.keyText = QPlainTextEdit()
+        self.keyText = QLineEdit()
         self.keyText.setPlaceholderText("Key...")
 
         self.clearButton = QPushButton("Clear")
