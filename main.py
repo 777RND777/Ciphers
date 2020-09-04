@@ -76,13 +76,13 @@ class MainWindow(QWidget):
 
     def cipher(self):
         if self.cipherBox.currentText() == "Caesar":
-            error, user_key = caesar_get_error(self.keyText.toPlainText())
+            error, user_key = caesar_get_error(self.keyText.text())
             if len(error) == 0:
                 self.outputText.setPlainText(caesar_main(self.inputText.toPlainText(), user_key, self.modeBox.currentText()))
             else:
                 QMessageBox.critical(None, "Error", error)
         if self.cipherBox.currentText() == "Vigenere":
-            error = vigenere_get_error(self.keyText.toPlainText())
+            error = vigenere_get_error(self.keyText.text())
             if len(error) == 0:
                 self.outputText.setPlainText(vigenere_main(self.inputText.toPlainText(), self.keyText.toPlainText(), self.modeBox.currentText()))
             else:
