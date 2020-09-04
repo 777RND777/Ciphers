@@ -35,7 +35,7 @@ def vigenere_decipher(sign, key):
 
 def vigenere_get_error(keyword):
     if not keyword.isalpha():
-        return "Wrong parameter: Keyword"
+        return "Wrong parameter: Keyword."
     return ""
 
 

@@ -80,13 +80,13 @@ class MainWindow(QWidget):
             if len(error) == 0:
                 self.outputText.setPlainText(caesar_main(self.inputText.toPlainText(), user_key, self.modeBox.currentText()))
             else:
-                QMessageBox.critical(None, "An exception was raised", error)
+                QMessageBox.critical(None, "Error", error)
         if self.cipherBox.currentText() == "Vigenere":
             error = vigenere_get_error(self.keyText.toPlainText())
             if len(error) == 0:
                 self.outputText.setPlainText(vigenere_main(self.inputText.toPlainText(), self.keyText.toPlainText(), self.modeBox.currentText()))
             else:
-                QMessageBox.critical(None, "An exception was raised", error)
+                QMessageBox.critical(None, "Error", error)
 
     def swap(self):
         holder = self.inputText.toPlainText()
@@ -100,25 +100,25 @@ class MainWindow(QWidget):
             self.keyText.setPlainText("")
 
     def open_file(self):
-        file = QFileDialog.getOpenFileName(None, 'Open file', os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
+        file = QFileDialog.getOpenFileName(None, "Open file", os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
         try:
-            with open(file, 'r') as f:
+            with open(file, "r") as f:
                 self.inputText.setPlainText(f.read())
         except FileNotFoundError:
             pass
 
     def save_file(self):
-        file = QFileDialog.getSaveFileName(None, 'Save file', os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
-        with open(file, 'w') as f:
+        file = QFileDialog.getSaveFileName(None, "Save file", os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
+        with open(file, "w") as f:
             f.write(self.outputText.toPlainText())
 
 
 def catch_exceptions(t, val, tb):
-    QMessageBox.critical(None, 'An exception was raised', 'Exception type: {}'.format(t))
+    QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
     old_hook(t, val, tb)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     old_hook = sys.excepthook
     sys.excepthook = catch_exceptions
 

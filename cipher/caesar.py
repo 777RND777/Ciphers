@@ -33,9 +33,9 @@ def caesar_get_error(shift):
     try:
         shift = int(shift)
         if shift not in range(1, 26):
-            return "Wrong value for Key: 1-25 (positive & negative)", shift
+            return "Wrong value for Key: 1-25 (positive & negative).", shift
     except ValueError:
-        return "Wrong parameter: Key", shift
+        return "Wrong parameter: Key.", shift
     return "", shift
 
 
