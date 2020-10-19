@@ -1,3 +1,4 @@
+from cipher.atbash import atbash_main
 from cipher.caesar import caesar_get_error, caesar_main
 from cipher.vigenère import vigenere_get_error, vigenere_main
 from PyQt5.QtCore import Qt
@@ -27,7 +28,7 @@ class MainWindow(QWidget):
         self.saveFileButton.clicked.connect(self.save_file)
 
         self.cipherBox = QComboBox()
-        self.cipherBox.addItems(["Caesar", "Vigenere"])
+        self.cipherBox.addItems(["Atbash", "Caesar", "Vigenere"])
 
         self.modeBox = QComboBox()
         self.modeBox.addItems(["Cipher", "Decipher"])
@@ -75,16 +76,22 @@ class MainWindow(QWidget):
         self.setLayout(self.mainLayout)
 
     def cipher(self):
-        if self.cipherBox.currentText() == "Caesar":
+        if self.cipherBox.currentText() == "Atbash":
+            self.outputText.setPlainText(atbash_main(self.inputText.toPlainText()))
+        elif self.cipherBox.currentText() == "Caesar":
             error, user_key = caesar_get_error(self.keyText.text())
             if len(error) == 0:
-                self.outputText.setPlainText(caesar_main(self.inputText.toPlainText(), user_key, self.modeBox.currentText()))
+                self.outputText.setPlainText(
+                    caesar_main(self.inputText.toPlainText(), user_key, self.modeBox.currentText())
+                )
             else:
                 QMessageBox.critical(None, "Error", error)
-        if self.cipherBox.currentText() == "Vigenere":
+        elif self.cipherBox.currentText() == "Vigenere":
             error = vigenere_get_error(self.keyText.text())
             if len(error) == 0:
-                self.outputText.setPlainText(vigenere_main(self.inputText.toPlainText(), self.keyText.toPlainText(), self.modeBox.currentText()))
+                self.outputText.setPlainText(
+                    vigenere_main(self.inputText.toPlainText(), self.keyText.toPlainText(), self.modeBox.currentText())
+                )
             else:
                 QMessageBox.critical(None, "Error", error)
 
