@@ -23,4 +23,4 @@ def atbash_main(text):
 #     with open("from.txt", "r") as f:
 #         file_text = f.read()
 #     with open("to.txt", "w") as f:
-#         f.write(atbash_main(input("Text: ")))
+#         f.write(atbash_main(file_text))
