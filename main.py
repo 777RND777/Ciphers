@@ -116,8 +116,11 @@ class MainWindow(QWidget):
 
     def save_file(self):
         file = QFileDialog.getSaveFileName(None, "Save file", os.path.dirname(os.path.abspath(__file__)), "*.txt")[0]
-        with open(file, "w") as f:
-            f.write(self.outputText.toPlainText())
+        try:
+            with open(file, "w") as f:
+                f.write(self.outputText.toPlainText())
+        except FileNotFoundError:
+            pass
 
 
 def catch_exceptions(t, val, tb):
