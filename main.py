@@ -81,7 +81,7 @@ class MainWindow(QWidget):
             self.outputText.setPlainText(atbash_main(self.inputText.toPlainText()))
         elif self.cipherBox.currentText() == "Caesar":
             error, user_key = caesar_get_error(self.keyText.text())
-            if len(error) == 0:
+            if not error:
                 self.outputText.setPlainText(
                     caesar_main(self.inputText.toPlainText(), user_key, self.modeBox.currentText())
                 )
@@ -91,9 +91,9 @@ class MainWindow(QWidget):
             self.outputText.setPlainText(rot13_main(self.inputText.toPlainText()))
         elif self.cipherBox.currentText() == "Vigenere":
             error = vigenere_get_error(self.keyText.text())
-            if len(error) == 0:
+            if not error:
                 self.outputText.setPlainText(
-                    vigenere_main(self.inputText.toPlainText(), self.keyText.toPlainText(), self.modeBox.currentText())
+                    vigenere_main(self.inputText.toPlainText(), self.keyText.text(), self.modeBox.currentText())
                 )
             else:
                 QMessageBox.critical(None, "Error", error)
